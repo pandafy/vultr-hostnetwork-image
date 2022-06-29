@@ -1,0 +1,23 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: host-policy-dns
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: host-policy-dns
+  template:
+    metadata:
+      labels:
+        app: host-policy-dns
+    spec:
+      restartPolicy: Always
+      hostNetwork: true
+      dnsPolicy: ClusterFirstWithHostNet
+      containers:
+        - name: host-network-dns
+          image: ghcr.io/pandafy/nslookup:latest
+          imagePullPolicy: Always
+
